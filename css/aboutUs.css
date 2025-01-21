@@ -1,0 +1,70 @@
+h1 {
+    text-align: center;
+    font-size: 37px;
+    font-family: 'Poppins', sans-serif; 
+    padding-top: 10px;
+}
+
+p {
+    margin-left: 200px;
+    margin-right: 200px;
+    font-size: 21px;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6; 
+}
+
+
+.carousel-item img {
+    width: auto;      
+    height: 600px;    
+    display: block;
+    margin: 0 auto;
+    object-fit: cover; 
+    padding-left: 200px;    
+    padding-right: 200px; 
+}
+
+.carousel-caption h5 {
+    font-size: 24px;
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.6); 
+    padding: 15px;
+    width: 100%; 
+    text-align: center; 
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+    position: absolute;
+    bottom: 0; 
+    left: 0;
+    box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.5); 
+    z-index: 2;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0; 
+    animation: fadeIn 1s ease-in-out; 
+}
+
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.carousel-caption h5:after {
+    content: '';
+    display: block;
+    width: 60%; 
+    height: 2px; 
+    background-color: #ffffff; 
+    margin: 8px auto 0;
+    opacity: 0.8;
+}
+
+

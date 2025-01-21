@@ -1,0 +1,46 @@
+.header {
+    display: flex; /* Horizontal layout for nav1, logo, and nav2 */
+    justify-content: space-between; /* Space out elements */
+    align-items: center; /* Align items vertically */
+    padding: 20px 40px; /* Add padding for better spacing */
+    background-color: rgba(212, 199, 165, 1); /* Header background color */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
+}
+
+/* Navigation Styling */
+.nav1, .nav2 {
+    display: flex;
+    gap: 25px; /* Adds space between nav items */
+}
+
+.nav1 a, .nav2 a {
+    text-decoration: none;
+    color: #333; /* Neutral text color */
+    font-size: 18px; /* Adjust font size for better readability */
+    font-weight: bold; /* Make text bold */
+    padding: 5px 10px; /* Add padding for clickable area */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth hover effect */
+}
+
+/* Hover Effect for Links */
+.nav1 a:hover, .nav2 a:hover {
+    background-color: #8E7A4D; /* Highlight color on hover */
+    color: #FFF; /* White text on hover */
+}
+
+.logo img {
+    height: 230px; /* Adjust height of the logo */
+    animation: fadeIn 3s ease-in-out; /* Apply the fade-in animation */
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1; /* Fully visible */
+    }
+}
+
+
