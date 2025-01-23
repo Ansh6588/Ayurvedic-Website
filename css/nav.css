@@ -5,6 +5,7 @@
     padding: 20px 40px; /* Add padding for better spacing */
     background-color: rgba(212, 199, 165, 1); /* Header background color */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
+    height:27vh;   
 }
 
 /* Navigation Styling */
