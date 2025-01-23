@@ -5,7 +5,8 @@
     padding: 20px 40px; /* Add padding for better spacing */
     background-color: rgba(212, 199, 165, 1); /* Header background color */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
-    height:27vh;   
+    height: 27vh;
+    position: relative; /* Positioning context for absolute elements inside */
 }
 
 /* Navigation Styling */
@@ -28,13 +29,44 @@
 .nav1 a:hover, .nav2 a:hover {
     background-color: #8E7A4D; /* Highlight color on hover */
     color: #FFF; /* White text on hover */
+    text-decoration: none;
+    
 }
 
+/* Positioning Login/Register links */
+.login-register {
+    position: absolute; /* Position it absolutely in the header */
+    bottom: 10px; /* Move it down a bit */
+    right: 40px; /* Align it to the right */
+    display: flex;
+    gap: 20px; /* Space between the links */
+}
+
+/* Styling for Login/Register links */
+.login-register a {
+    text-decoration: none;
+    color: #FFF;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 20px;
+    background-color: #8E7A4D; /* Background color for the links */
+    border-radius: 15px; /* Rounded corners for the links */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+}
+
+/* Hover Effect for Login/Register */
+.login-register a:hover {
+    background-color: #6c757d; /* Different color for hover effect */
+    transform: translateY(-5px); /* Slight lift effect on hover */
+}
+
+/* Logo Styling */
 .logo img {
     height: 230px; /* Adjust height of the logo */
     animation: fadeIn 3s ease-in-out; /* Apply the fade-in animation */
 }
 
+/* Animation for Logo */
 @keyframes fadeIn {
     0% {
         opacity: 0;
@@ -44,4 +76,44 @@
     }
 }
 
+/* Styling for Modal (Login and Register) */
+.modal-backdrop {
+    z-index: 1040 !important;
+}
 
+.modal-content {
+    border-radius: 8px;
+}
+
+.modal-header {
+    background-color: #8E7A4D; /* Match with header color */
+    color: #FFF;
+    border-bottom: none;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.form-control {
+    border-radius: 5px; /* Rounded input fields */
+}
+
+button[type="submit"] {
+    background-color: #8E7A4D; /* Match button color with header */
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px 20px;
+    width: 100%;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #6c757d; /* Darker shade on hover */
+}
