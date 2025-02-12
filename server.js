@@ -31,6 +31,10 @@ expressApp.get('/community',(req,res)=>
 {
     res.render("community");
 });
+expressApp.get('/register',(req,res)=>
+    {
+        res.render("register");
+    });
 const port=5050;
 expressApp.listen(port);
 console.log("Listening to http://localhost:"+port);
