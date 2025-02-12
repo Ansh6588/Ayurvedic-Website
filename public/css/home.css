@@ -1,0 +1,88 @@
+/* Navigation */
+.nav2 a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* Hero Section */
+/* Hero Section */
+.hero {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: black;
+    z-index: 2; /* Ensure it's on top of the video */
+    background: rgba(0, 0, 0, 0); /* Optional: Adds a transparent background for readability */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.hero .btn {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+}
+
+/* Video Section */
+.video-section {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Make the video take full height */
+    overflow: hidden;
+}
+
+.video-section video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures video covers the entire section */
+}
+
+/* About Section */
+.about {
+    padding: 50px 20px;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+/* Services */
+.services {
+    padding: 50px 20px;
+}
+
+.service-item {
+    text-align: center;
+    padding: 20px;
+}
+
+.service-item img {
+    width: 200px;
+    height: 200px;
+}
+
+/* Footer */
+.footer {
+    background: #222;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer a {
+    color: #ffcc00;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
