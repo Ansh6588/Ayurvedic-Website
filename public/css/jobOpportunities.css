@@ -11,12 +11,12 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 15px 30px;
-    background-color: #1a8a52;
-    color: white;
+    background-color: rgba(212, 199, 165, 1);
+    color:black;
 }
 
 .header nav a {
-    color: white;
+    color:black;
     text-decoration: none;
     margin: 0 15px;
     font-size: 18px;
@@ -28,7 +28,7 @@ body {
 }
 
 .logo img {
-    height: 50px;
+    height: 230px;
 }
 
 main {
@@ -38,7 +38,7 @@ main {
 
 main h1 {
     font-size: 36px;
-    color: #1a8a52;
+    color: #8E7A4D;
     margin-bottom: 20px;
 }
 
@@ -90,11 +90,11 @@ main p {
 }
 
 .job-card button:hover {
-    background-color: #14643d;
+    background-color: #8E7A4D;
 }
 
 footer {
-    background-color: #1a8a52;
+    background-color: #8E7A4D;
     color: white;
     text-align: center;
     padding: 15px 0;
