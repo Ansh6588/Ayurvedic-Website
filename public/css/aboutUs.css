@@ -1,50 +1,63 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+}
+
+.main-content {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fff;
+    border: 3px solid #00796b; /* Teal border */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
 h1 {
     text-align: center;
     font-size: 37px;
-    font-family: 'Poppins', sans-serif; 
+    font-family: 'Poppins', sans-serif;
     padding-top: 10px;
+    color: #00796b; /* Teal color */
 }
 
 p {
     margin-left: 200px;
     margin-right: 200px;
     font-size: 21px;
-    font-family: 'Roboto', sans-serif;
-    line-height: 1.6; 
+    line-height: 1.6;
+    color: #555;
 }
 
-
 .carousel-item img {
-    width: auto;      
-    height: 600px;    
+    width: auto;
+    height: 600px;
     display: block;
     margin: 0 auto;
-    object-fit: cover; 
-    padding-left: 200px;    
-    padding-right: 200px; 
+    object-fit: cover;
+    padding-left: 200px;
+    padding-right: 200px;
 }
 
 .carousel-caption h5 {
     font-size: 24px;
     font-family: 'Poppins', sans-serif;
     color: #ffffff;
-    background: rgba(0, 0, 0, 0.6); 
+    background: rgba(0, 0, 0, 0.6);
     padding: 15px;
-    width: 100%; 
-    text-align: center; 
+    width: 100%;
+    text-align: center;
     text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
     position: absolute;
-    bottom: 0; 
+    bottom: 0;
     left: 0;
-    box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.5); 
+    box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.5);
     z-index: 2;
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin: 0; 
-    animation: fadeIn 1s ease-in-out; 
+    margin: 0;
+    animation: fadeIn 1s ease-in-out;
 }
-
-
 
 @keyframes fadeIn {
     from {
@@ -60,11 +73,25 @@ p {
 .carousel-caption h5:after {
     content: '';
     display: block;
-    width: 60%; 
-    height: 2px; 
-    background-color: #ffffff; 
+    width: 60%;
+    height: 2px;
+    background-color: #ffffff;
     margin: 8px auto 0;
     opacity: 0.8;
 }
 
+.join-team {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 20px;
+}
 
+.join-team a {
+    color: #00796b;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.join-team a:hover {
+    text-decoration: underline;
+}

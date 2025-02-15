@@ -35,6 +35,14 @@ expressApp.get('/register',(req,res)=>
     {
         res.render("register");
     });
+    expressApp.get('/jobOpportunities',(req,res)=>
+        {
+            res.render("jobOpportunities");
+        });
+expressApp.get('/location',(req,res)=>
+            {
+                res.render("location");
+            });
 const port=5050;
 expressApp.listen(port);
 console.log("Listening to http://localhost:"+port);

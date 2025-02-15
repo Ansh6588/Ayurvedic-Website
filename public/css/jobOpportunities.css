@@ -1,0 +1,102 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #1a8a52;
+    color: white;
+}
+
+.header nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.header nav a:hover {
+    text-decoration: underline;
+}
+
+.logo img {
+    height: 50px;
+}
+
+main {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+main h1 {
+    font-size: 36px;
+    color: #1a8a52;
+    margin-bottom: 20px;
+}
+
+main p {
+    font-size: 18px;
+    margin-bottom: 40px;
+    color: #555;
+}
+
+.job-listings {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.job-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.job-card h2 {
+    font-size: 22px;
+    color: #1a8a52;
+    margin-bottom: 10px;
+}
+
+.job-card p {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #666;
+}
+
+.job-card button {
+    background-color: #1a8a52;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.job-card button:hover {
+    background-color: #14643d;
+}
+
+footer {
+    background-color: #1a8a52;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 50px;
+}
