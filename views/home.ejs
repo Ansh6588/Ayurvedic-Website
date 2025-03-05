@@ -10,40 +10,33 @@
 </head>
 <body>
 
+
+    <% if (message) { %>
+        <div class="alert alert-warning">
+            <%= message %>
+        </div>
+    <% } %>
     <div class="header">
-        <div class="nav1">
-            <nav>
-                <a href="/">Home</a>
-                <a href="consultation">Consultation</a>
-                <a href="products">Products</a>
-                <a href="courses">Courses</a>
-                <a href="jobopportunities">Job Opportunities</a>
-            </nav>
-        </div>
-        <div class="logo">
-            <img src="image/logo.png" alt="Logo">
-        </div>
-        <div class="nav2">
-            <nav>
-                <a href="wholesale">Wholesale</a>
-                <a href="location">Location</a>
-                <a href="newsletter">Newsletter</a>
-                <a href="community">Community</a>
-                <a href="aboutus">About Us</a>
-            </nav>
-        </div>
+        <%- include('partials/nav') %>
         <div class="login-register">
-            <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
-            <a href="register">Register</a>
+            <% if (user) { %>
+                <span>Welcome, <%= user.name %>!</span>
+                <a href="/logout">Logout</a>
+            <% } else { %>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+                <a href="register">Register</a>
+            <% } %>
         </div>  
     </div>
-<!-- Video Section -->
-<section class="video-section">
-    <video autoplay muted loop playsinline>
-        <source src="video/Ayurveda.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-</section>
+
+    <!-- Video Section -->
+    <section class="video-section">
+        <video autoplay muted loop playsinline>
+            <source src="video/Ayurveda.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </section>
+    
     <!-- Hero Section -->
     <section class="hero">
         <h1>Welcome to Ayurvedic Wellness</h1>
@@ -59,8 +52,6 @@
             <a href="aboutus.html" class="btn btn-secondary">Learn More</a>
         </div>
     </section>
-
-
 
     <!-- Services Section -->
     <section class="services">
@@ -89,7 +80,6 @@
     <!-- Footer -->
     <footer class="footer">
         <p>&copy; 2025 Ayurvedic Wellness | <a href="privacy.html">Privacy Policy</a></p>
-     
     </footer>
 
     <!-- Modal for Login -->
@@ -101,14 +91,14 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form action="/login" method="POST">
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="email" required>
+                            <label for="loginEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="loginEmail" name="email" required>
                         </div>
                         <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" required>
+                            <label for="loginPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="loginPassword" name="password" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Login</button>
                     </form>

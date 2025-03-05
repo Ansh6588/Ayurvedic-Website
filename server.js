@@ -1,48 +1,57 @@
-const express=require('express');
-const path=require('path');
-const expressApp=express();
-expressApp.set("views",path.join(__dirname,"views"));
-expressApp.use(express.static("public"));
-expressApp.use(express.urlencoded({extended:false}));
-expressApp.set("view engine","ejs");
-const session=require('express-session');
-expressApp.use(session({
-    secret:'testSecret',
-    resave:false,
-    saveUninitialized:true
+const express = require('express');
+const path = require('path');
+const session = require('express-session');
+const mongoose = require('mongoose');
+
+const app = express();
+
+// Set up views and static files
+app.set("views", path.join(__dirname, "views"));
+app.use(express.static("public"));
+app.use(express.urlencoded({ extended: false }));
+app.set("view engine", "ejs");
+
+// Session Middleware (Only Once)
+app.use(session({
+    secret: 'testSecret',
+    resave: false,
+    saveUninitialized: true
 }));
 
-const mongoose=require('mongoose');
-const {emit}=require('process');
+// Pass user session data to all views
+app.use((req, res, next) => {
+    res.locals.user = req.session.user || null; // User is accessible in all templates
+    next();
+});
 
-expressApp.get('/',(req,res)=>
-{
-    res.render("home");
+// Connect to MongoDB
+mongoose.connect("mongodb://127.0.0.1:27017/ayurveda", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => console.log("✅ MongoDB Connected"))
+  .catch(err => console.error("❌ MongoDB Connection Error:", err));
+
+// Routes
+const userRoutes = require("./Routes/userRoutes"); 
+app.use("/", userRoutes);
+
+// Page Routes
+
+app.get("/", (req, res) => {
+    // Check if the user is logged in by checking the session
+    const userName = req.session.user ? req.session.user.name : null;
+    res.render("home", { message: null, userName: userName });
 });
-expressApp.get('/aboutus',(req,res)=>
-{
-    res.render("aboutUs");
-});
-expressApp.get('/newsletter',(req,res)=>
-{
-    res.render("newsletter");
-});
-expressApp.get('/community',(req,res)=>
-{
-    res.render("community");
-});
-expressApp.get('/register',(req,res)=>
-    {
-        res.render("register");
-    });
-    expressApp.get('/jobOpportunities',(req,res)=>
-        {
-            res.render("jobOpportunities");
-        });
-expressApp.get('/location',(req,res)=>
-            {
-                res.render("location");
-            });
-const port=5050;
-expressApp.listen(port);
-console.log("Listening to http://localhost:"+port);
+
+app.get('/aboutus', (req, res) => res.render("aboutUs"));
+app.get('/newsletter', (req, res) => res.render("newsletter"));
+app.get('/community', (req, res) => res.render("community"));
+app.get('/jobOpportunities', (req, res) => res.render("jobOpportunities"));
+app.get('/location', (req, res) => res.render("location"));
+app.get('/register', (req, res) => res.render("register"));
+app.get('/register-success', (req, res) => res.render("register-success")); // This is correct
+app.get('/consultation', (req, res) => res.render("consultation"));
+
+// Start Server
+const port = 5050;
+app.listen(port, () => console.log(`🚀 Server running on http://localhost:${port}`));

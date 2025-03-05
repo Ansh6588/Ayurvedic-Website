@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayurvedic Consultation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Book Your Ayurvedic Consultation</h1>
+    </header>
+    <main>
+        <section class="consultation-form">
+            <h2>Fill in Your Details</h2>
+            <form action="/book-consultation" method="POST">
+                <label for="full-name">Full Name:</label>
+                <input type="text" id="full-name" name="full_name" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required>
+                
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" required>
+                
+                <label for="concerns">Health Concerns:</label>
+                <textarea id="concerns" name="concerns" rows="4" required></textarea>
+                
+                <label for="appointment">Preferred Appointment Date & Time:</label>
+                <input type="datetime-local" id="appointment" name="appointment" required>
+                
+                <button type="submit">Book Consultation</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Ayurveda Wellness. All rights reserved.</p>
+    </footer>
+</body>
+</html>
