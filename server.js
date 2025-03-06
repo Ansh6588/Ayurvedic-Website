@@ -44,6 +44,7 @@ app.get("/", (req, res) => {
 });
 
 app.get('/aboutus', (req, res) => res.render("aboutUs"));
+app.get('/softwaredeveloper', (req, res) => res.render("softwaredeveloper"));
 app.get('/newsletter', (req, res) => res.render("newsletter"));
 app.get('/community', (req, res) => res.render("community"));
 app.get('/jobOpportunities', (req, res) => res.render("jobOpportunities"));
