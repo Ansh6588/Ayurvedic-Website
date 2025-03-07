@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <% if (messages.success) { %>
+        <div class="alert alert-success" role="alert">
+            <%= messages.success %>
+        </div>
+    <% } %>
+    <div class="container mt-5">
+        <h2 class="text-center">Welcome, Ansh!</h2>
+
+        <div class="d-flex justify-content-between mt-4">
+            <h4>Registered Users</h4>
+            <a href="/logout" class="btn btn-danger">Logout</a>
+        </div>
+
+        <table class="table table-bordered mt-3">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% users.forEach((user, index) => { %>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%= user.fullName %></td>
+                        <td><%= user.email %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        <div class="mt-5">
+            <h4>Add New Product</h4>
+            <form action="/upload-product" method="POST" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Product Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="category" class="form-label">Category</label>
+                    <input type="text" class="form-control" id="category" name="category" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="number" step="0.01" class="form-control" id="price" name="price" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="stock" class="form-label">Stock Quantity</label>
+                    <input type="number" class="form-control" id="stock" name="stock" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="productImage" class="form-label">Product Image</label>
+                    <input type="file" class="form-control" id="productImage" name="productImage">
+                </div>
+
+                <div class="mb-3">
+                    <label for="ingredients" class="form-label">Ingredients (comma-separated)</label>
+                    <input type="text" class="form-control" id="ingredients" name="ingredients">
+                </div>
+
+                <div class="mb-3">
+                    <label for="benefits" class="form-label">Health Benefits (comma-separated)</label>
+                    <input type="text" class="form-control" id="benefits" name="benefits">
+                </div>
+
+                <div class="mb-3">
+                    <label for="usageInstructions" class="form-label">Usage Instructions</label>
+                    <textarea class="form-control" id="usageInstructions" name="usageInstructions" rows="3"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="manufacturer" class="form-label">Manufacturer</label>
+                    <input type="text" class="form-control" id="manufacturer" name="manufacturer">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Add Product</button>
+            </form>
+        </div>
+
+        <!-- New Course Upload Form -->
+        <div class="mt-4">
+            <h4>Add New Course</h4>
+            <form action="/upload-course" method="POST" enctype="multipart/form-data">
+                <!-- Course Title -->
+                <div class="mb-3">
+                    <label for="title" class="form-label">Course Title</label>
+                    <input type="text" class="form-control" id="title" name="title" required>
+                </div>
+
+                <!-- Course Description -->
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+                </div>
+
+                <!-- Course Price -->
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="number" step="0.01" class="form-control" id="price" name="price" required>
+                </div>
+
+                <!-- Full Video Upload -->
+                <div class="mb-3">
+                    <label for="fullVideo" class="form-label">Full Video</label>
+                    <input type="file" class="form-control" id="fullVideo" name="fullVideo" required>
+                </div>
+
+                <!-- Preview Video Upload -->
+                <div class="mb-3">
+                    <label for="previewVideo" class="form-label">Preview Video</label>
+                    <input type="file" class="form-control" id="previewVideo" name="previewVideo" required>
+                </div>
+
+                <!-- Duration of Full Video (in seconds) -->
+                <div class="mb-3">
+                    <label for="fullVideoDuration" class="form-label">Full Video Duration (in seconds)</label>
+                    <input type="number" class="form-control" id="fullVideoDuration" name="fullVideoDuration" required>
+                </div>
+
+                <!-- Duration of Preview Video (in seconds) -->
+                <div class="mb-3">
+                    <label for="previewVideoDuration" class="form-label">Preview Video Duration (in seconds)</label>
+                    <input type="number" class="form-control" id="previewVideoDuration" name="previewVideoDuration" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Add Course</button>
+            </form>
+        </div>
+
+    </div>
+</body>
+</html>

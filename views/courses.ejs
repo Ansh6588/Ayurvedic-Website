@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Courses</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="css/courses.css">
+</head>
+<body>
+    <div class="header">
+        
+    </div>
+    <div class="main-container">
+        <header class="header">
+            <h1>Our Courses</h1>
+            <p>Explore the best courses to take your knowledge to the next level</p>
+        </header>
+
+        <% if (courses.length === 0) { %>
+            <p class="no-courses">No courses available at the moment. Check back soon!</p>
+        <% } else { %>
+            <div class="courses-grid">
+                <% courses.forEach(course => { %>
+                    <div class="course-card">
+                        <div class="course-img">
+                            <img src="image/thumb.jpg" alt="<%= course.title %>">
+                        </div>
+                        <div class="course-info">
+                            <h2><%= course.title %></h2>
+                            <p class="course-description"><%= course.description %></p>
+                            <p class="course-price">$<%= course.price.toFixed(2) %></p>
+                            
+                            <div class="buttons">
+                                
+                                    <a href="/courses/<%= course._id %>/preview" class="btn preview-btn" target="_blank">Watch Preview</a>
+                                
+                                <a href="/courses/<%= course._id %>" class="btn view-btn">View Full Course</a>
+                            </div>
+
+                    
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } %>
+
+        <footer class="footer">
+            <p>&copy; 2025 Ayurvedic Courses. All rights reserved.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

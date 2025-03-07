@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/User"); // Import User model
+const User = require("../Models/User");
+
+const ADMIN_EMAIL = "ansh@ayurveda.com"; 
+const ADMIN_PASSWORD = "test123";
 
 // Register User
 router.post("/registeruser", async (req, res) => {
@@ -18,7 +21,7 @@ router.post("/registeruser", async (req, res) => {
             return res.render("register", { message: "Email already in use" });
         }
 
-        // Save user to database (No hashing)
+        // Save user to database (storing password as plaintext ⚠️)
         const user = new User({ fullName, email, password });
         await user.save();
 
@@ -26,6 +29,7 @@ router.post("/registeruser", async (req, res) => {
         res.redirect("/register-success");
 
     } catch (error) {
+        console.error(error);
         res.render("register", { message: "Something went wrong, try again!" });
     }
 });
@@ -34,25 +38,41 @@ router.post("/registeruser", async (req, res) => {
 router.post("/login", async (req, res) => {
     try {
         const { email, password } = req.body;
+        
 
-        // Find user by email
+        // Check if admin is logging in
+        if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+            req.session.user = { name: "Admin", email: ADMIN_EMAIL };
+            
+            return res.redirect("/admin");
+        }
+
+        // Find user by email in the database
         const user = await User.findOne({ email });
 
-        // Check if user exists and password is correct
-        if (!user || user.password !== password) {
+        if (!user) {
+            console.log("User not found in database.");
             return res.render("home", { message: "Invalid email or password" });
         }
 
-        // Store user info in session
+        console.log(`User found: ${user.email}, Stored Password: ${user.password}, Entered Password: ${password}`);
+
+        if (user.password !== password) {
+            console.log("Password mismatch.");
+            return res.render("home", { message: "Invalid email or password" });
+        }
+
+        // Store user session
         req.session.user = {
             name: user.fullName,
-            email: user.email
+            email: user.email,
         };
 
-        // Redirect to home with user session
-        res.redirect("/");
+        console.log("User logged in successfully!");
+        res.redirect("/user/dashboard");
 
     } catch (error) {
+        console.error("Error during login:", error);
         res.render("home", { message: "Something went wrong, try again!" });
     }
 });

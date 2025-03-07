@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <link rel="stylesheet" href="css/product.css">
+    
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="header">
+        <%- include('partials/nav') %>
+    </div>
+
+    <!-- Main Content -->
+    <main class="products-main">
+        <h1 class="page-title">All Courses</h1>
+        <div class="product-container">
+            <% courses.forEach(course => { %>
+                <div class="product-card">
+                    <div class="course-details">
+                        <h2 class="course-name"><%= course.title %></h2>
+                        <p class="course-description"><%= course.description %></p>
+                        <div class="course-meta">
+                            <p><strong>Price:</strong> $<%= course.price %></p>
+                            <p><strong>Duration (Full Video):</strong> <%= course.video.fullVideoDuration %> minutes</p>
+                            <p><strong>Duration (Preview Video):</strong> <%= course.video.previewVideoDuration %> minutes</p>
+                        </div>
+                        <button class="btn btn-primary">Buy Now</button>
+                        <!-- Button to view preview video -->
+                        <a href="/courses/<%= course._id %>/preview" class="btn btn-secondary">Preview Video</a>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </main>
+
+    <!-- Footer Section (Optional) -->
+    <footer class="footer">
+        <p>&copy; 2025 Ayurvedic Website. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
