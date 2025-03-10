@@ -69,7 +69,7 @@ router.post("/login", async (req, res) => {
         };
 
         console.log("User logged in successfully!");
-        res.redirect("/user/dashboard");
+        res.redirect("/");
 
     } catch (error) {
         console.error("Error during login:", error);
