@@ -40,6 +40,8 @@ app.use("/", productroutes);
 // Page Routes
 const courseroutes = require("./Routes/courseroutes"); 
 app.use("/", courseroutes);
+const wholesaleroutes = require("./Routes/wholesaleroutes"); 
+app.use("/", wholesaleroutes);
 
 app.get("/", (req, res) => {
     // Check if the user is logged in by checking the session
@@ -49,6 +51,7 @@ app.get("/", (req, res) => {
 const ADMIN_EMAIL = "ansh@ayurveda.com"; 
 const ADMIN_PASSWORD = "test123";
 app.get('/aboutus', (req, res) => res.render("aboutUs"));
+app.get('/wholesale', (req, res) => res.render("wholesale"));
 app.get('/softwaredeveloper', (req, res) => res.render("softwaredeveloper"));
 app.get('/newsletter', (req, res) => res.render("newsletter"));
 app.get('/community', (req, res) => res.render("community"));

@@ -1,0 +1,45 @@
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        #controls {
+            margin-bottom: 15px;
+        }
+        button, input {
+            padding: 10px;
+            font-size: 16px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #27ae60;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #219150;
+        }
+        input {
+            border: 1px solid #ccc;
+            width: 250px;
+        }
+        #map {
+            height: 400px;
+            width: 100%;
+            margin-top: 10px;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+        }
+        #loading {
+            display: none;
+            font-size: 18px;
+            color: #e67e22;
+            margin-top: 10px;
+        }
+    

@@ -15,21 +15,26 @@
 
     <!-- Main Content -->
     <main class="products-main">
-        <h1 class="page-title">All Courses</h1>
+        <h1 class="page-title">All Products</h1>
         <div class="product-container">
-            <% courses.forEach(course => { %>
+            <% products.forEach(product => { %>
                 <div class="product-card">
-                    <div class="course-details">
-                        <h2 class="course-name"><%= course.title %></h2>
-                        <p class="course-description"><%= course.description %></p>
-                        <div class="course-meta">
-                            <p><strong>Price:</strong> $<%= course.price %></p>
-                            <p><strong>Duration (Full Video):</strong> <%= course.video.fullVideoDuration %> minutes</p>
-                            <p><strong>Duration (Preview Video):</strong> <%= course.video.previewVideoDuration %> minutes</p>
+                    <div class="product-image">
+                        <% if (product.image) { %>
+                            <img src="/image/<%= product.image %>" alt="<%= product.name %>" class="product-img">
+                        <% } else { %>
+                            <p class="no-image">No image available</p>
+                        <% } %>
+                    </div>
+                    <div class="product-details">
+                        <h2 class="product-name"><%= product.name %></h2>
+                        <p class="product-description"><%= product.description %></p>
+                        <div class="product-meta">
+                            <p><strong>Price:</strong> $<%= product.price %></p>
+                            <p><strong>Category:</strong> <%= product.category %></p>
+                            <p><strong>Stock:</strong> <%= product.stock %></p>
                         </div>
                         <button class="btn btn-primary">Buy Now</button>
-                        <!-- Button to view preview video -->
-                        <a href="/courses/<%= course._id %>/preview" class="btn btn-secondary">Preview Video</a>
                     </div>
                 </div>
             <% }) %>

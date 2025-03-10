@@ -1,0 +1,182 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+
+/* Hero Section */
+/* Hero Section */
+.wholesale-hero {
+    position: relative;
+    background: url('/image/wholesaleback.jpg') no-repeat center center/cover;
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+/* Add a dark overlay to improve text visibility */
+.wholesale-hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+    z-index: 0; 
+}
+
+
+/* Adjust text positioning */
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    margin: auto;
+    color: white;
+}
+
+.hero-content h1 {
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+
+.cta-button {
+    background-color: #2d8659;
+    color: white;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #236c47;
+}
+
+/* Wholesale Info Section */
+.wholesale-info {
+    text-align: center;
+    padding: 50px 20px;
+    background: white;
+}
+
+.wholesale-info h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #2d8659;
+}
+
+.benefits {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.benefit-item {
+    width: 250px;
+    padding: 20px;
+    background: #f4f4f4;
+    border-radius: 10px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.benefit-item:hover {
+    background: #e0f2e9;
+}
+
+.benefit-item img {
+    width: 150px;
+    height: 120px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+}
+
+.benefit-item h3 {
+    font-size: 1.4rem;
+    color: #2d8659;
+    margin-bottom: 5px;
+}
+
+.benefit-item p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Form Section */
+.wholesale-form-section {
+    padding: 50px 20px;
+    background: #e8f5e9;
+    text-align: center;
+}
+
+.form-container {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #2d8659;
+}
+
+.form-container p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.input-group input {
+    flex: 1;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.submit-button {
+    background-color: #2d8659;
+    color: white;
+    padding: 14px;
+    border: none;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #236c47;
+}

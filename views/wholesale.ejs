@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wholesale | Ayurveda</title>
+    <link rel="stylesheet" href="css/wholesale.css">
+</head>
+<body>
+    <div class="header">
+        <%- include('partials/nav') %>
+    </div>
+
+    <!-- Display the success/error message -->
+    <% if (message) { %>
+        <div class="alert">
+            <p><%= message %></p>
+        </div>
+    <% } %>
+
+    <section class="wholesale-hero">
+        <div class="hero-content">
+            <h1>Become a Wholesale Partner</h1>
+            <p>Grow your business by offering authentic Ayurvedic products. Get exclusive bulk discounts and dedicated support.</p>
+            <a href="#wholesale-form" class="cta-button">Apply Now</a>
+        </div>
+    </section>
+
+    <section class="wholesale-info">
+        <div class="info-container">
+            <h2>Why Partner With Us?</h2>
+            <div class="benefits">
+                <div class="benefit-item">
+                    <img src="image/bulkdiscount.jpg" alt="Bulk Discount">
+                    <h3>Exclusive Discounts</h3>
+                    <p>Enjoy competitive pricing on bulk orders.</p>
+                </div>
+                <div class="benefit-item">
+                    <img src="image/authenticayurveda.jpg" alt="Authentic Ayurveda">
+                    <h3>Authentic Ayurveda</h3>
+                    <p>Our products are made from high-quality, natural ingredients.</p>
+                </div>
+                <div class="benefit-item">
+                    <img src="image/support.jpg" alt="Dedicated Support">
+                    <h3>Dedicated Support</h3>
+                    <p>We provide full assistance to our wholesale partners.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="wholesale-form-section" id="wholesale-form">
+        <div class="form-container">
+            <h2>Apply for Wholesale Pricing</h2>
+            <p>Fill out the form below, and our team will contact you soon.</p>
+
+            <!-- Form to submit wholesale request -->
+            <form action="/wholesale" method="POST">
+                <div class="input-group">
+                    <input type="text" name="businessName" placeholder="Business Name" required>
+                    <input type="text" name="contactPerson" placeholder="Contact Person" required> <!-- Added contactPerson -->
+                </div>
+                <div class="input-group">
+                    <input type="text" name="fullName" placeholder="Your Full Name" required>
+                    <input type="email" name="email" placeholder="Email Address" required>
+                </div>
+                <div class="input-group">
+                    <input type="tel" name="phone" placeholder="Phone Number" required>
+                    <select name="businessType" required>
+                        <option value="" disabled selected>Business Type</option>
+                        <option value="Online Store">Online Store</option>
+                        <option value="Physical Store">Physical Store</option>
+                        <option value="Distributor">Distributor</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <input type="number" name="orderQuantity" placeholder="Estimated Order Quantity" required>
+                <textarea name="message" placeholder="Message (Optional)"></textarea>
+                <button type="submit" class="submit-button">Apply Now</button>
+            </form>
+        </div>
+    </section>
+
+</body>
+</html>
