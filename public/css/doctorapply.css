@@ -1,0 +1,76 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+/* Job Header */
+.job-header {
+    background: url('/image/job-banner.jpg') no-repeat center center/cover;
+    text-align: center;
+    padding: 80px 20px;
+    color: white;
+    position: relative;
+}
+
+.job-header .container {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 30px;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+.job-header h1 {
+    font-size: 3rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.job-details {
+    background: white;
+    padding: 40px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.job-sidebar {
+    background: #00695c;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.apply-btn {
+    background-color: #ff9800;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    transition: 0.3s ease-in-out;
+}
+
+.apply-btn:hover {
+    background-color: #e68900;
+}
+
+/* Form Styling */
+.apply-form {
+    background: white;
+    padding: 40px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.apply-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    background: #333;
+    color: white;
+    margin-top: 30px;
+}

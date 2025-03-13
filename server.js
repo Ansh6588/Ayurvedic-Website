@@ -42,7 +42,9 @@ const courseroutes = require("./Routes/courseroutes");
 app.use("/", courseroutes);
 const wholesaleroutes = require("./Routes/wholesaleroutes"); 
 app.use("/", wholesaleroutes);
-
+const doctorroutes = require("./Routes/doctorroutes"); 
+const JobApplication = require('./Models/Doctor');
+app.use("/", doctorroutes);
 app.get("/", (req, res) => {
     // Check if the user is logged in by checking the session
     const userName = req.session.user ? req.session.user.name : null;
@@ -51,6 +53,8 @@ app.get("/", (req, res) => {
 const ADMIN_EMAIL = "ansh@ayurveda.com"; 
 const ADMIN_PASSWORD = "test123";
 app.get('/aboutus', (req, res) => res.render("aboutUs"));
+app.get('/apply-success', (req, res) => res.render("apply-success"));
+app.get('/doctorapply', (req, res) => res.render("doctorapply"));
 app.get('/wholesale', (req, res) => res.render("wholesale"));
 app.get('/softwaredeveloper', (req, res) => res.render("softwaredeveloper"));
 app.get('/newsletter', (req, res) => res.render("newsletter"));
@@ -59,22 +63,33 @@ app.get('/jobOpportunities', (req, res) => res.render("jobOpportunities"));
 app.get('/location', (req, res) => res.render("location"));
 app.get('/register', (req, res) => res.render("register"));
 app.get('/register-success', (req, res) => res.render("register-success")); 
-app.get('/consultation', (req, res) => res.render("consultation"));
+app.get('/consultation', async (req, res) => {
+    try {
+        // Fetch the approved doctors from the database
+        const approvedDoctors = await JobApplication.find({ status: 'Approved' });
+
+        // Render the consultation page and pass the approved doctors to the view
+        res.render('consultation', { approvedDoctors });
+    } catch (err) {
+        console.error('Error fetching doctors:', err);
+        // Render the consultation page with an empty array if an error occurs
+        res.render('consultation', { approvedDoctors: [] });
+    }
+});
+
 app.get("/admin", async (req, res) => {
     try {
         // Check if the user is logged in and is an admin
         if (!req.session.user || req.session.user.email !== ADMIN_EMAIL) {
-            return res.redirect("/login"); // Redirect non-admin users to login
+            return res.redirect("/"); // Redirect non-admin users to login
         }
 
         // Fetch all registered users from the database
         const users = await User.find();
-
+        const applications = await JobApplication.find(); // Fetch all doctor applications
+        res.render("admin", { users, applications, messages: req.flash() });
         // Render admin.ejs and pass users list and flash messages
-        res.render("admin", {
-            users,
-            messages: req.flash() // Pass flash messages to the template
-        });
+       
 
     } catch (error) {
         console.error("Error fetching users:", error);
