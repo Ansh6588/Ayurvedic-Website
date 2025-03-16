@@ -67,9 +67,10 @@ app.get('/consultation', async (req, res) => {
     try {
         // Fetch the approved doctors from the database
         const approvedDoctors = await JobApplication.find({ status: 'Approved' });
-
+        const userName = req.session.user ? req.session.user.name : null;
+        
         // Render the consultation page and pass the approved doctors to the view
-        res.render('consultation', { approvedDoctors });
+        res.render('consultation', { approvedDoctors,userName });
     } catch (err) {
         console.error('Error fetching doctors:', err);
         // Render the consultation page with an empty array if an error occurs
