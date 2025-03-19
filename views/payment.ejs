@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Processing</title>
+
+    <!-- Bootstrap for styling -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>🔄 Processing Payment...</h2>
+        <p id="course-name">Course: <strong></strong></p>
+
+        <div id="successMessage" class="hidden">
+            <h3 class="text-success">✅ Payment Successful!</h3>
+            <p>Thank you for your purchase.</p>
+        </div>
+
+        <div id="failureMessage" class="hidden">
+            <h3 class="text-danger">❌ Payment Failed</h3>
+            <p>Something went wrong. Please try again.</p>
+        </div>
+
+        <button class="btn btn-primary mt-3" onclick="window.location.href='/'">Return to Home</button>
+    </div>
+
+    <script>
+        // Get course name from URL parameters
+        const params = new URLSearchParams(window.location.search);
+        const courseName = params.get("course");
+
+        if (courseName) {
+            document.getElementById("course-name").innerHTML = `Course: <strong>${courseName}</strong>`;
+        }
+
+        // Simulate payment success or failure
+        setTimeout(() => {
+            let isSuccess = Math.random() > 0.2; // 80% chance of success
+            if (isSuccess) {
+                document.getElementById("successMessage").classList.remove("hidden");
+            } else {
+                document.getElementById("failureMessage").classList.remove("hidden");
+            }
+        }, 3000); // Simulate delay
+    </script>
+
+</body>
+</html>

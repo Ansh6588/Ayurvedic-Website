@@ -13,12 +13,22 @@
     <div class="header">
         <%- include('partials/nav') %>
     </div>
-
+    <% if (messages.success) { %>
+        <div class="alert alert-success" role="alert">
+            <%= messages.success %>
+        </div>
+    <% } %>
+    
+    <% if (messages.error) { %>
+        <div class="alert alert-danger" role="alert">
+            <%= messages.error %>
+        </div>
+    <% } %>
     <!-- Newsletter Section -->
     <div class="container">
         <h1>Subscribe to Our Newsletter</h1>
         <p>Stay updated with the latest Ayurvedic tips, products, and exclusive offers by subscribing to our newsletter.</p>
-        <form class="subscription-form" action="#" method="post">
+        <form class="subscription-form" action="/subscribe" method="post">
             <input type="email" name="email" placeholder="Enter your email address" required>
             <button type="submit">Subscribe</button>
         </form>

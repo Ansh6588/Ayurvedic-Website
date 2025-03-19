@@ -53,11 +53,18 @@ app.get("/", (req, res) => {
 const ADMIN_EMAIL = "ansh@ayurveda.com"; 
 const ADMIN_PASSWORD = "test123";
 app.get('/aboutus', (req, res) => res.render("aboutUs"));
+const newsletterRoutes = require('./Routes/subscriberroutes');
+app.use('/', newsletterRoutes);
+
+app.get('/payment', (req, res) => res.render("payment"));
 app.get('/apply-success', (req, res) => res.render("apply-success"));
 app.get('/doctorapply', (req, res) => res.render("doctorapply"));
 app.get('/wholesale', (req, res) => res.render("wholesale"));
 app.get('/softwaredeveloper', (req, res) => res.render("softwaredeveloper"));
-app.get('/newsletter', (req, res) => res.render("newsletter"));
+app.get('/newsletter', (req, res) => {
+    res.render("newsletter", { messages: req.flash() });
+});
+
 app.get('/community', (req, res) => res.render("community"));
 app.get('/jobOpportunities', (req, res) => res.render("jobOpportunities"));
 app.get('/location', (req, res) => res.render("location"));

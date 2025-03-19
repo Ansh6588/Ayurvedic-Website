@@ -32,13 +32,10 @@
                             <p class="course-price">$<%= course.price.toFixed(2) %></p>
                             
                             <div class="buttons">
-                                
-                                    <a href="/courses/<%= course._id %>/preview" class="btn preview-btn" target="_blank">Watch Preview</a>
-                                
-                                <a href="/courses/<%= course._id %>" class="btn view-btn">View Full Course</a>
+                                <a href="/courses/<%= course._id %>/preview" class="btn preview-btn" target="_blank">Watch Preview</a>
+                            
+                                <button class="btn buy-btn" onclick="redirectToDummyPayment('<%= course.title %>')">Buy Now</button>
                             </div>
-
-                    
                         </div>
                     </div>
                 <% }) %>
@@ -50,5 +47,10 @@
         </footer>
     </div>
 
+    <script>
+        function redirectToDummyPayment(courseTitle) {
+            window.location.href = `/payment?course=${encodeURIComponent(courseTitle)}`;
+        }
+    </script>
 </body>
 </html>

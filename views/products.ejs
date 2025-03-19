@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products</title>
     <link rel="stylesheet" href="css/product.css">
-    
 </head>
 <body>
     <!-- Header Section -->
@@ -34,17 +33,23 @@
                             <p><strong>Category:</strong> <%= product.category %></p>
                             <p><strong>Stock:</strong> <%= product.stock %></p>
                         </div>
-                        <button class="btn btn-primary">Buy Now</button>
+                        <button class="btn btn-primary" onclick="redirectToDummyPayment('<%= product.name %>',' <%= product.price %>')">Buy Now</button>
                     </div>
                 </div>
             <% }) %>
         </div>
     </main>
 
-    <!-- Footer Section (Optional) -->
+    <!-- Footer Section -->
     <footer class="footer">
         <p>&copy; 2025 Ayurvedic Website. All rights reserved.</p>
     </footer>
+
+    <script>
+        function redirectToDummyPayment(productName, price) {
+            window.location.href = `/payment?product=${encodeURIComponent(productName)}&price=${price}`;
+        }
+    </script>
 
 </body>
 </html>

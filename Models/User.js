@@ -14,7 +14,7 @@ const UserSchema = new mongoose.Schema({
     purchasedProducts: [
         { type: mongoose.Schema.Types.ObjectId, ref: "Product" }
     ], // Stores the products the user has purchased
-    // Optionally, you can add other fields such as a profile picture, address, etc.
+    newsletterSubscribed: { type: Boolean, default: false } // Tracks newsletter subscription status
 });
 
 module.exports = mongoose.model("User", UserSchema);
