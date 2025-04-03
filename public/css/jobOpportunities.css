@@ -1,3 +1,4 @@
+/* ===== Base Styles ===== */
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -6,97 +7,139 @@ body {
     color: #333;
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    background-color: rgba(212, 199, 165, 1);
-    color:black;
-}
-
-.header nav a {
-    color:black;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 18px;
-    font-weight: 500;
-}
-
-.header nav a:hover {
-    text-decoration: underline;
-}
-
-.logo img {
-    height: 230px;
-}
-
+/* ===== Main Content Styles ===== */
 main {
-    padding: 50px 20px;
+    padding: 60px 20px;
     text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 main h1 {
-    font-size: 36px;
-    color: #8E7A4D;
+    font-size: 40px;
+    color: #DAA520; /* Professional Gold */
+    font-weight: 600;
     margin-bottom: 20px;
 }
 
 main p {
     font-size: 18px;
-    margin-bottom: 40px;
     color: #555;
+    max-width: 750px;
+    margin: 0 auto 40px;
+    line-height: 1.8;
 }
 
+/* ===== Job Listings ===== */
 .job-listings {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
+    gap: 35px;
+    margin-top: 30px;
 }
 
 .job-card {
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    width: 300px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #2D2D2D; /* Dark Gray */
+    border-radius: 10px;
+    padding: 30px;
+    width: 330px;
     text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.job-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
 .job-card h2 {
     font-size: 22px;
-    color: #1a8a52;
-    margin-bottom: 10px;
+    color: #DAA520; /* Gold */
+    margin-bottom: 15px;
+    font-weight: 600;
 }
 
 .job-card p {
     font-size: 16px;
+    color: #ccc;
+    line-height: 1.6;
     margin-bottom: 15px;
-    color: #666;
 }
 
+.job-card .job-meta {
+    font-size: 14px;
+    color: #bbb;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+/* ===== Buttons ===== */
 .job-card button {
-    background-color: #1a8a52;
-    color: white;
+    background: linear-gradient(135deg, #E6B800, #C29200); /* Gold Gradient */
+    color: black;
     border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
+    padding: 12px 20px;
+    border-radius: 6px;
     font-size: 16px;
     cursor: pointer;
     width: 100%;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    box-shadow: 0 4px 8px rgba(218, 165, 32, 0.3);
 }
 
 .job-card button:hover {
-    background-color: #8E7A4D;
+    background: linear-gradient(135deg, #FFD700, #C29200);
+    box-shadow: 0 6px 12px rgba(218, 165, 32, 0.4);
 }
 
+/* ===== Footer ===== */
 footer {
-    background-color: #8E7A4D;
+    background-color: #111;
     color: white;
     text-align: center;
-    padding: 15px 0;
-    margin-top: 50px;
+    padding: 25px 0;
+    margin-top: 70px;
+    font-size: 14px;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+    main {
+        padding: 40px 15px;
+    }
+    
+    main h1 {
+        font-size: 32px;
+    }
+    
+    .job-listings {
+        gap: 20px;
+    }
+    
+    .job-card {
+        width: 100%;
+        max-width: 380px;
+    }
+}
+
+@media (max-width: 480px) {
+    main h1 {
+        font-size: 28px;
+    }
+    
+    main p {
+        font-size: 16px;
+    }
+    
+    .job-card {
+        padding: 20px;
+    }
+    
+    .job-card button {
+        padding: 10px;
+        font-size: 14px;
+    }
 }

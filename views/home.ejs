@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayurvedic Wellness | Natural Healing</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/home.css"> 
-    <link rel="stylesheet" href="css/nav.css"> 
-    <title>Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
-
-
     <% if (message) { %>
         <div class="alert alert-warning">
             <%= message %>
         </div>
     <% } %>
+    
+    <!-- Header with Original Navigation -->
     <div class="header">
         <%- include('partials/nav') %>
         <div class="login-register">
@@ -26,7 +27,7 @@
                 <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
                 <a href="register">Register</a>
             <% } %>
-        </div>  
+        </div>
     </div>
 
     <!-- Video Section -->
@@ -40,49 +41,192 @@
     <!-- Hero Section -->
     <section class="hero">
         <h1>Welcome to Ayurvedic Wellness</h1>
-        <p>Experience the power of ancient Ayurvedic healing.</p>
-        <a href="consultation" class="btn btn-primary">Book a Consultation</a>
+        <p>Ancient healing for modern life</p>
+        <div class="hero-buttons">
+            <a href="consultation" class="btn btn-primary">Book Consultation</a>
+       
+        </div>
     </section>
 
     <!-- About Section -->
     <section class="about">
         <div class="container">
             <h2>About Us</h2>
-            <p>We are dedicated to promoting Ayurveda as a way of life. Our experts provide natural remedies, personalized consultations, and high-quality herbal products.</p>
-            <a href="aboutus" class="btn btn-secondary">Learn More</a>
+            <p>We combine traditional Ayurveda with modern wellness</p>
+            <div class="about-content">
+                <p>Our experts help find the root cause of health issues. We offer natural treatments, herbs, and lifestyle advice to bring balance to your body and mind.</p>
+                <a href="aboutus" class="btn btn-secondary">Learn More</a>
+            </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section class="services">
-        <div class="container text-center">
-            <h2>Our Services</h2>
-            <div class="row">
-                <div class="col-md-4 service-item">
-                    <img src="image/ayurvedaconsultation.jpg" alt="Consultation">
-                    <h4>Consultations</h4>
-                    <p>Get expert advice from our Ayurvedic specialists.</p>
-                </div>
-                <div class="col-md-4 service-item">
-                    <img src="image/productimg.jpg" alt="Products">
-                    <h4>Products</h4>
-                    <p>High-quality Ayurvedic herbs and supplements.</p>
-                </div>
-                <div class="col-md-4 service-item">
-                    <img src="image/ayurvedacourse.jpg" alt="Courses">
-                    <h4>Courses</h4>
-                    <p>Learn Ayurveda from certified practitioners.</p>
+  <!-- Consultations Section -->
+<section class="service-section">
+    <div class="container">
+      <div class="service-card">
+        <div class="row align-items-center">
+          <div class="col-lg-5">
+            <img src="image/doctors.avif" alt="Ayurvedic Consultation" class="service-img img-fluid rounded-lg shadow">
+          </div>
+          <div class="col-lg-7">
+            <div class="service-content">
+              <h2 class="service-title">Personal Ayurvedic Consultations</h2>
+              <p class="service-description">Discover your unique mind-body type and receive a customized wellness plan from our experienced practitioners.</p>
+              
+              <ul class="service-benefits">
+                <li class="benefit-item">In-depth health assessment</li>
+                <li class="benefit-item">Personalized diet recommendations</li>
+                <li class="benefit-item">Custom herbal formulations</li>
+                <li class="benefit-item">Lifestyle guidance</li>
+              </ul>
+              
+              <a href="/consultation" class="btn btn-primary btn-cta">Schedule Your Consultation</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Courses Section -->
+  <section class="service-section bg-light">
+    <div class="container">
+      <div class="service-card">
+        <div class="row align-items-center">
+          <div class="col-lg-5 order-lg-2">
+            <img src="image/courses.jpg" alt="Ayurvedic Courses" class="service-img img-fluid rounded-lg shadow">
+          </div>
+          <div class="col-lg-7 order-lg-1">
+            <div class="service-content">
+              <h2 class="service-title">Ayurvedic Wellness Courses</h2>
+              <p class="service-description">Learn ancient healing practices adapted for modern lifestyles through our comprehensive courses.</p>
+              
+              <ul class="service-benefits">
+                <li class="benefit-item">Daily self-care techniques</li>
+                <li class="benefit-item">Seasonal cleansing methods</li>
+                <li class="benefit-item">Herbal remedy preparation</li>
+                <li class="benefit-item">Yoga and meditation practices</li>
+              </ul>
+              
+              <a href="/courses" class="btn btn-primary btn-cta">Explore Courses</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+      <!-- Products Section -->
+      <section class="service-section">
+        <div class="container">
+            <div class="service-card">
+                <div class="row align-items-center">
+                    <div class="col-lg-5">
+                        <img src="/image/productimg.jpg" alt="Ayurvedic Products" class="service-img img-fluid rounded-lg shadow">
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="service-content">
+                            <h2 class="service-title">Authentic Ayurvedic Products</h2>
+                            <p class="service-description">High-quality herbal formulations prepared according to classical Ayurvedic texts for your wellness journey.</p>
+                            
+                            <div class="benefits-container">
+                                <div class="benefit-item">
+                                    <i class="fas fa-seedling benefit-icon"></i>
+                                    <div>
+                                        <h4>Organic Herbs</h4>
+                                        <p>Single herbs and traditional blends</p>
+                                    </div>
+                                </div>
+                                <div class="benefit-item">
+                                    <i class="fas fa-prescription-bottle benefit-icon"></i>
+                                    <div>
+                                        <h4>Ready Remedies</h4>
+                                        <p>Formulations for common health needs</p>
+                                    </div>
+                                </div>
+                                <div class="benefit-item">
+                                    <i class="fas fa-spa benefit-icon"></i>
+                                    <div>
+                                        <h4>Self-Care Kits</h4>
+                                        <p>Complete wellness packages</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <a href="/products" class="btn btn-primary btn-ayurveda">
+                                Explore Products <i class="fas fa-arrow-right ms-2"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>&copy; 2025 Ayurvedic Wellness | <a href="privacy.html">Privacy Policy</a></p>
-    </footer>
 
-    <!-- Modal for Login -->
+
+   <!-- Footer -->
+<footer class="footer bg-black">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand Column -->
+        <div class="footer-brand">
+          <img src="image/Ayurveda (2).png" alt="Ayurvedic Wellness" class="footer-logo">
+          <p class="footer-tagline text-light-gray">Ancient wisdom for modern wellness</p>
+          <div class="social-icons">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+  
+        <!-- Links Column -->
+        <div class="footer-links">
+          <div class="links-group">
+            <h5 class="links-heading text-gold">Navigation</h5>
+            <ul class="links-list">
+              <li><a href="/" class="text-light">Home</a></li>
+              <li><a href="/aboutUs" class="text-light">About</a></li>
+             
+            </ul>
+          </div>
+  
+          <div class="links-group">
+            <h5 class="links-heading text-gold">Services</h5>
+            <ul class="links-list">
+              <li><a href="consultation" class="text-light">Consultations</a></li>
+              <li><a href="/newsletter" class="text-light">Newsletter</a></li>
+              <li><a href="/wholesale" class="text-light">Wholesale</a></li>
+              <li><a href="/location" class="text-light">Location</a></li>
+              <li><a href="/courses" class="text-light">Courses</a></li>
+              <li><a href="/product" class="text-light">Product</a>    </li>
+            </ul>
+          </div>
+        </div>
+  
+        <!-- Contact Column -->
+        <div class="footer-contact">
+          <h5 class="contact-heading text-gold">Contact Us</h5>
+          <address class="contact-info">
+            <p class="text-light"><i class="fas fa-map-marker-alt text-gold"></i> 123 Wellness Path, Serenity City</p>
+            <p class="text-light"><i class="fas fa-phone text-gold"></i> (123) 456-7890</p>
+            <p class="text-light"><i class="fas fa-envelope text-gold"></i> info@ayurvedicwellness.com</p>
+          </address>
+        </div>
+      </div>
+  
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <p class="copyright text-gray">&copy; 2023 Ayurvedic Wellness. All rights reserved.</p>
+        <div class="legal-links">
+          <a href="privacy" class="text-gray">Privacy Policy</a>
+          <span class="text-gray mx-2">|</span>
+          <a href="terms" class="text-gray">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+    <!-- Login Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -93,7 +237,7 @@
                 <div class="modal-body">
                     <form action="/login" method="POST">
                         <div class="mb-3">
-                            <label for="loginEmail" class="form-label">Email address</label>
+                            <label for="loginEmail" class="form-label">Email</label>
                             <input type="email" class="form-control" id="loginEmail" name="email" required>
                         </div>
                         <div class="mb-3">
@@ -107,7 +251,6 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

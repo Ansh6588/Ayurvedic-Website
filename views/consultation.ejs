@@ -14,7 +14,7 @@
 
     <div class="header">
         <!-- DEBUG OUTPUT -->
-      
+        
     
         <%- include('partials/nav') %>
         <div class="login-register">
@@ -246,33 +246,68 @@
         </form>
     </div>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <h3>Ayurveda Wellness</h3>
-                    <p>Holistic healing for mind, body and spirit</p>
-                </div>
-                <div class="footer-links">
-                    <ul>
-                        <li><a href="/about">About Us</a></li>
-                        <li><a href="/services">Services</a></li>
-                        <li><a href="/practitioners">Practitioners</a></li>
-                        <li><a href="/contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-social">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Ayurveda Wellness Center. All rights reserved.</p>
-            </div>
+     <!-- Footer -->
+<footer class="footer bg-black">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand Column -->
+        <div class="footer-brand">
+          <img src="image/Ayurveda (2).png" alt="Ayurvedic Wellness" class="footer-logo">
+          <p class="footer-tagline text-light-gray">Ancient wisdom for modern wellness</p>
+          <div class="social-icons">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+          </div>
         </div>
-    </footer>
+  
+        <!-- Links Column -->
+        <div class="footer-links">
+          <div class="links-group">
+            <h5 class="links-heading text-gold">Navigation</h5>
+            <ul class="links-list">
+              <li><a href="/" class="text-light">Home</a></li>
+              <li><a href="/aboutUs" class="text-light">About</a></li>
+             
+            </ul>
+          </div>
+  
+          <div class="links-group">
+            <h5 class="links-heading text-gold">Services</h5>
+            <ul class="links-list">
+              <li><a href="consultation" class="text-light">Consultations</a></li>
+              <li><a href="/newsletter" class="text-light">Newsletter</a></li>
+              <li><a href="/wholesale" class="text-light">Wholesale</a></li>
+              <li><a href="/location" class="text-light">Location</a></li>
+              <li><a href="/courses" class="text-light">Courses</a></li>
+              <li><a href="/product" class="text-light">Product</a>    </li>
+            </ul>
+          </div>
+        </div>
+  
+        <!-- Contact Column -->
+        <div class="footer-contact">
+          <h5 class="contact-heading text-gold">Contact Us</h5>
+          <address class="contact-info">
+            <p class="text-light"><i class="fas fa-map-marker-alt text-gold"></i> 123 Wellness Path, Serenity City</p>
+            <p class="text-light"><i class="fas fa-phone text-gold"></i> (123) 456-7890</p>
+            <p class="text-light"><i class="fas fa-envelope text-gold"></i> info@ayurvedicwellness.com</p>
+          </address>
+        </div>
+      </div>
+  
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <p class="copyright text-gray">&copy; 2023 Ayurvedic Wellness. All rights reserved.</p>
+        <div class="legal-links">
+          <a href="privacy" class="text-gray">Privacy Policy</a>
+          <span class="text-gray mx-2">|</span>
+          <a href="terms" class="text-gray">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>

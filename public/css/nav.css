@@ -3,7 +3,7 @@
         justify-content: space-between; /* Space out elements */
         align-items: center; /* Align items vertically */
         padding: 20px 40px; /* Add padding for better spacing */
-        background-color: rgba(212, 199, 165, 1); /* Header background color */
+        background-color: rgb(0, 0, 0); /* Header background color */
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
         height: 27vh;
         position: relative; /* Positioning context for absolute elements inside */
@@ -17,7 +17,7 @@
 
     .nav1 a, .nav2 a {
         text-decoration: none;
-        color: #333; /* Neutral text color */
+        color: #ffffff; /* Neutral text color */
         font-size: 18px; /* Adjust font size for better readability */
         font-weight: bold; /* Make text bold */
         padding: 5px 10px; /* Add padding for clickable area */
