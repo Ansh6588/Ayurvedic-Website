@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="/css/consultation.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
+
     <div class="header">
+        <!-- DEBUG OUTPUT -->
+      
+    
         <%- include('partials/nav') %>
         <div class="login-register">
             <% if (user) { %>
@@ -32,13 +33,11 @@
             <div class="hero-content">
                 <h1>Personalized Ayurvedic Consultation</h1>
                 <p class="lead">Experience holistic healing with our certified Ayurvedic practitioners</p>
-                <div class="hero-cta">
-                    <a href="#consultation-types" class="btn btn-primary btn-lg">Book Now</a>
-                </div>
             </div>
         </div>
     </div>
 
+    <!-- Login Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -56,13 +55,6 @@
                             <label for="loginPassword" class="form-label">Password</label>
                             <input type="password" class="form-control" id="loginPassword" name="password" required>
                         </div>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="rememberMe">
-                                <label class="form-check-label" for="rememberMe">Remember me</label>
-                            </div>
-                            <a href="#" class="text-decoration-none">Forgot password?</a>
-                        </div>
                         <button type="submit" class="btn btn-primary w-100">Login</button>
                     </form>
                     <div class="text-center mt-3">
@@ -74,144 +66,184 @@
     </div>
 
     <div class="container consultation-container">
-        <div class="row g-4">
-            <!-- Left Section: Consultation Types -->
-            <div class="col-lg-4" id="consultation-types">
-                <div class="consultation-section">
-                    <h2 class="section-title"><i class="fas fa-spa me-2"></i>Consultation Types</h2>
-                    <div class="section-description">Select the type of consultation that matches your needs</div>
-                    
-                    <% let consultationTypes = [
-                        { name: "General Consultation", price: 50, icon: "user-md", description: "Comprehensive health assessment and lifestyle recommendations" },
-                        { name: "Eye Consultation", price: 60, icon: "eye", description: "Specialized care for eye health and vision improvement" },
-                        { name: "Skin Consultation", price: 70, icon: "hand-holding-medical", description: "Natural solutions for skin conditions and beauty" }
-                    ]; %>
-
-                    <div class="consultation-options">
-                        <% consultationTypes.forEach((type, index) => { %>
-                            <div class="consultation-card">
-                                <div class="consultation-icon">
-                                    <i class="fas fa-<%= type.icon %>"></i>
-                                </div>
-                                <div class="consultation-details">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h5 class="consultation-name"><%= type.name %></h5>
-                                        <span class="consultation-price">$<%= type.price %></span>
-                                    </div>
-                                    <p class="consultation-description"><%= type.description %></p>
-                                    <div class="form-check">
-                                        <input class="form-check-input consultation-checkbox" type="radio" name="consultationType" value="<%= type.name %>" id="consultation-<%= index %>" required>
-                                        <label class="form-check-label" for="consultation-<%= index %>">Select this option</label>
-                                    </div>
-                                </div>
-                            </div>
-                        <% }) %>
-                    </div>
-                </div>
+        <% if (error) { %>
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <%= error %>
             </div>
+        <% } %>
 
-            <!-- Middle Section: Booking Form -->
-            <div class="col-lg-4">
-                <div class="booking-section">
-                    <h2 class="section-title"><i class="fas fa-calendar-check me-2"></i>Appointment Details</h2>
-                    
-                    <% if (!user) { %>
-                        <div class="alert alert-warning d-flex align-items-center">
-                            <i class="fas fa-exclamation-circle me-2"></i>
-                            <div>You are not signed in. <a href="/login" class="alert-link">Sign in</a> or fill in the details below.</div>
-                        </div>
-                    <% } else { %>
-                        <div class="alert alert-success d-flex align-items-center">
-                            <i class="fas fa-check-circle me-2"></i>
-                            <div>Signed in as <strong><%= user.name %></strong>.</div>
-                        </div>
-                    <% } %>
-
-                    <form action="/consultation/book" method="POST" class="booking-form" id="consultationForm">
-                        <input type="hidden" name="selectedDoctor" id="selectedDoctor">
-                        <input type="hidden" name="consultationType" id="consultationTypeHidden">
+        <form id="consultationForm" action="/consultation/book" method="POST">
+            <div class="row g-4">
+                <!-- Left Section: Consultation Types -->
+                <div class="col-lg-4">
+                    <div class="consultation-section">
+                        <h2 class="section-title"><i class="fas fa-spa me-2"></i>Consultation Types</h2>
+                        <div class="section-description">Select the type of consultation that matches your needs</div>
                         
-                        <% if (!user) { %>
-                            <div class="mb-3">
-                                <label for="full-name" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="full-name" name="full_name" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email Address</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
-                            </div>
-                        <% } else { %>
-                            <input type="hidden" name="full_name" value="<%= user.name %>">
-                            <input type="hidden" name="email" value="<%= user.email %>">
-                        <% } %>
-                        
-                        <div class="mb-3">
-                            <label for="phone" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" id="phone" name="phone" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="dob" class="form-label">Date of Birth</label>
-                            <input type="date" class="form-control" id="dob" name="dob" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="concerns" class="form-label">Health Concerns</label>
-                            <textarea class="form-control" id="concerns" name="concerns" rows="3" required placeholder="Describe your health concerns..."></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="appointment" class="form-label">Preferred Date & Time</label>
-                            <input type="datetime-local" class="form-control" id="appointment" name="appointment" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100 btn-book">
-                            <i class="fas fa-calendar-plus me-2"></i>Book Consultation
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Right Section: Available Doctors -->
-            <div class="col-lg-4">
-                <div class="doctors-section">
-                    <h2 class="section-title"><i class="fas fa-user-md me-2"></i>Our Practitioners</h2>
-                    <div class="section-description">Select your preferred Ayurvedic doctor</div>
-
-                    <% if (approvedDoctors && approvedDoctors.length > 0) { %>
-                        <div class="doctor-list">
-                            <% approvedDoctors.forEach((doctor) => { %>
-                                <div class="doctor-card" data-doctor-id="<%= doctor._id %>">
-                                    <div class="doctor-image">
-                                        <img src="/image/<%= doctor.image %>" alt="Dr. <%= doctor.fullName %>" class="img-fluid">
+                        <div class="consultation-options">
+                            <% const consultationTypes = [
+                                { name: "General Consultation", price: 50, icon: "user-md", description: "Comprehensive health assessment and lifestyle recommendations" },
+                                { name: "Eye Consultation", price: 60, icon: "eye", description: "Specialized care for eye health and vision improvement" },
+                                { name: "Skin Consultation", price: 70, icon: "hand-holding-medical", description: "Natural solutions for skin conditions and beauty" }
+                            ]; %>
+                            
+                            <% consultationTypes.forEach((type, index) => { %>
+                                <div class="consultation-card">
+                                    <div class="consultation-icon">
+                                        <i class="fas fa-<%= type.icon %>"></i>
                                     </div>
-                                    <div class="doctor-info">
+                                    <div class="consultation-details">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h5 class="consultation-name"><%= type.name %></h5>
+                                            <span class="consultation-price">$<%= type.price %></span>
+                                        </div>
+                                        <p class="consultation-description"><%= type.description %></p>
                                         <div class="form-check">
-                                            <input type="radio" name="doctor" value="<%= doctor._id %>" class="form-check-input doctor-checkbox" id="doctor-<%= doctor._id %>" required>
-                                            <label class="form-check-label" for="doctor-<%= doctor._id %>"></label>
-                                        </div>
-                                        <h5 class="doctor-name">Dr. <%= doctor.fullName %></h5>
-                                        <div class="doctor-specialty">
-                                            <% if (doctor.educationQualification && doctor.educationQualification.length > 0) { %>
-                                                <i class="fas fa-graduation-cap"></i> <%= doctor.educationQualification.join(', ') %>
-                                            <% } %>
-                                        </div>
-                                        <div class="doctor-actions">
-                                            <button type="button" class="btn btn-outline-primary btn-sm">
-                                                <i class="fas fa-phone-alt"></i> Call
-                                            </button>
-                                            <button type="button" class="btn btn-outline-success btn-sm">
-                                                <i class="fas fa-video"></i> Video
-                                            </button>
+                                            <input class="form-check-input consultation-radio" type="radio" 
+                                                   name="consultationType" 
+                                                   value="<%= type.name %>" 
+                                                   id="consultationType-<%= index %>" 
+                                                   data-price="<%= type.price %>" 
+                                                   required
+                                                   <%= formData && formData.consultationType === type.name ? 'checked' : '' %>>
+                                            <label class="form-check-label" for="consultationType-<%= index %>">
+                                                Select this option
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
                             <% }) %>
                         </div>
-                    <% } else { %>
-                        <div class="alert alert-info">
-                            <i class="fas fa-info-circle me-2"></i> No doctors available at the moment. Please check back later.
+                    </div>
+                </div>
+
+                <!-- Middle Section: Booking Form -->
+                <div class="col-lg-4">
+                    <div class="booking-section">
+                        <h2 class="section-title"><i class="fas fa-calendar-check me-2"></i>Appointment Details</h2>
+                        
+                        <% if (!user) { %>
+                            <div class="alert alert-warning d-flex align-items-center">
+                                <i class="fas fa-exclamation-circle me-2"></i>
+                                <div>You are not signed in. <a href="/login" class="alert-link">Sign in</a> or fill in the details below.</div>
+                            </div>
+                        <% } else { %>
+                            <div class="alert alert-success d-flex align-items-center">
+                                <i class="fas fa-check-circle me-2"></i>
+                                <div>Signed in as <strong><%= user.name %></strong>.</div>
+                            </div>
+                        <% } %>
+
+                        <div class="booking-form">
+                            <% if (!user) { %>
+                                <div class="mb-3">
+                                    <label for="patientName" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="patientName" name="patientName" 
+                                           value="<%= formData ? formData.patientName : '' %>" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="patientEmail" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="patientEmail" name="patientEmail"
+                                           value="<%= formData ? formData.patientEmail : '' %>" required>
+                                </div>
+                            <% } else { %>
+                                <input type="hidden" name="patientName" value="<%= user.name %>">
+                                <input type="hidden" name="patientEmail" value="<%= user.email %>">
+                            <% } %>
+                            
+                            <div class="mb-3">
+                                <label for="patientPhone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="patientPhone" name="patientPhone"
+                                       value="<%= formData ? formData.patientPhone : '' %>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="patientDOB" class="form-label">Date of Birth</label>
+                                <input type="date" class="form-control" id="patientDOB" name="patientDOB"
+                                       value="<%= formData ? formData.patientDOB : '' %>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="healthConcerns" class="form-label">Health Concerns</label>
+                                <textarea class="form-control" id="healthConcerns" name="healthConcerns" rows="3" required
+                                          placeholder="Describe your health concerns (minimum 20 characters)..."><%= formData ? formData.healthConcerns : '' %></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="appointmentDateTime" class="form-label">Preferred Date & Time</label>
+                                <input type="datetime-local" class="form-control" id="appointmentDateTime" 
+                                       name="appointmentDateTime"
+                                       value="<%= formData ? formData.appointmentDateTime : '' %>" required>
+                            </div>
                         </div>
-                    <% } %>
+                    </div>
+                </div>
+
+                <!-- Right Section: Available Doctors -->
+                <div class="col-lg-4">
+                    <div class="doctors-section">
+                        <h2 class="section-title"><i class="fas fa-user-md me-2"></i>Our Practitioners</h2>
+                        <div class="section-description">Select your preferred Ayurvedic doctor</div>
+
+                        <% if (approvedDoctors && approvedDoctors.length > 0) { %>
+                            <div class="doctor-list">
+                                <% approvedDoctors.forEach((doctor) => { %>
+                                    <div class="doctor-card" data-doctor-id="<%= doctor._id %>">
+                                        <div class="doctor-image">
+                                            <img src="/image/<%= doctor.image %>" alt="Dr. <%= doctor.fullName %>" class="img-fluid">
+                                        </div>
+                                        <div class="doctor-info">
+                                            <div class="form-check">
+                                                <input type="radio" name="doctor" value="<%= doctor._id %>" 
+                                                       class="form-check-input doctor-radio" 
+                                                       id="doctor-<%= doctor._id %>" 
+                                                       required
+                                                       <%= formData && formData.doctor == doctor._id.toString() ? 'checked' : '' %>>
+                                                <label class="form-check-label" for="doctor-<%= doctor._id %>"></label>
+                                            </div>
+                                            <h5 class="doctor-name">Dr. <%= doctor.fullName %></h5>
+                                            <div class="doctor-specialty">
+                                                <% if (doctor.educationQualification && doctor.educationQualification.length > 0) { %>
+                                                    <i class="fas fa-graduation-cap"></i> <%= doctor.educationQualification.join(', ') %>
+                                                <% } %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% }) %>
+                            </div>
+                        <% } else { %>
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i> No doctors available at the moment. Please check back later.
+                            </div>
+                        <% } %>
+
+                        <!-- Order Summary Section -->
+                        <div class="order-summary mt-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5><i class="fas fa-receipt me-2"></i>Order Summary</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="consultationSummary" class="mb-2">
+                                        <small class="text-muted">No consultation selected</small>
+                                    </div>
+                                    <div id="doctorSummary" class="mb-3">
+                                        <small class="text-muted">No doctor selected</small>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h6>Total Amount:</h6>
+                                        <h5 id="totalAmount">$0</h5>
+                                        <input type="hidden" name="total_amount" id="totalAmountHidden" value="0">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100 mt-3 btn-book">
+                                        <i class="fas fa-credit-card me-2"></i>Proceed to Payment
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 
     <footer class="footer">
@@ -243,82 +275,69 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Update hidden fields before submission
-            const form = document.getElementById('consultationForm');
-            if (form) {
-                form.addEventListener('submit', function(e) {
-                    // Get selected doctor
-                    const doctorRadio = document.querySelector('.doctor-checkbox:checked');
-                    if (doctorRadio) {
-                        document.getElementById('selectedDoctor').value = doctorRadio.value;
-                    }
-                    
-                    // Get selected consultation type
-                    const consultationRadio = document.querySelector('.consultation-checkbox:checked');
-                    if (consultationRadio) {
-                        document.getElementById('consultationTypeHidden').value = consultationRadio.value;
-                    }
-                    
-                    // Validate selections
-                    if (!doctorRadio || !consultationRadio) {
-                        e.preventDefault();
-                        alert('Please select both a doctor and consultation type');
-                        return false;
-                    }
-                    
-                    return true;
-                });
+            // Update summary when selections change
+            function updateSummary() {
+                const consultationRadio = document.querySelector('.consultation-radio:checked');
+                const doctorRadio = document.querySelector('.doctor-radio:checked');
+                
+                // Update consultation summary
+                if (consultationRadio) {
+                    const consultationName = consultationRadio.value;
+                    const consultationPrice = consultationRadio.dataset.price;
+                    document.getElementById('consultationSummary').innerHTML = 
+                        `<strong>Consultation:</strong> ${consultationName}<br>
+                         <span class="text-muted">$${consultationPrice}</span>`;
+                } else {
+                    document.getElementById('consultationSummary').innerHTML = 
+                        '<small class="text-muted">No consultation selected</small>';
+                }
+                
+                // Update doctor summary
+                if (doctorRadio) {
+                    const doctorCard = doctorRadio.closest('.doctor-card');
+                    const doctorName = doctorCard.querySelector('.doctor-name').textContent;
+                    document.getElementById('doctorSummary').innerHTML = 
+                        `<strong>Doctor:</strong> ${doctorName}`;
+                } else {
+                    document.getElementById('doctorSummary').innerHTML = 
+                        '<small class="text-muted">No doctor selected</small>';
+                }
+                
+                // Calculate and update total
+                if (consultationRadio) {
+                    const total = consultationRadio.dataset.price;
+                    document.getElementById('totalAmount').textContent = `$${total}`;
+                    document.getElementById('totalAmountHidden').value = total;
+                } else {
+                    document.getElementById('totalAmount').textContent = '$0';
+                    document.getElementById('totalAmountHidden').value = '0';
+                }
             }
-
-            // Add click handlers for doctor cards
-            document.querySelectorAll('.doctor-card').forEach(card => {
+            
+            // Add event listeners for all radio buttons
+            document.querySelectorAll('.consultation-radio, .doctor-radio').forEach(radio => {
+                radio.addEventListener('change', updateSummary);
+            });
+            
+            // Card click handlers
+            document.querySelectorAll('.doctor-card, .consultation-card').forEach(card => {
                 card.addEventListener('click', function(e) {
-                    if (e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL' || 
-                        e.target.tagName === 'BUTTON' || e.target.closest('button')) {
-                        return;
-                    }
+                    // Don't trigger if clicking directly on the radio or label
+                    if (e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL') return;
                     
-                    const radio = this.querySelector('.doctor-checkbox');
+                    const radio = this.querySelector('input[type="radio"]');
                     if (radio) {
                         radio.checked = true;
-                        this.classList.add('selected');
-                        
-                        // Remove selected class from other cards
-                        document.querySelectorAll('.doctor-card').forEach(otherCard => {
-                            if (otherCard !== this) {
-                                otherCard.classList.remove('selected');
-                            }
-                        });
+                        radio.dispatchEvent(new Event('change'));
                     }
                 });
             });
-
-            // Add click handlers for consultation cards
-            document.querySelectorAll('.consultation-card').forEach(card => {
-                card.addEventListener('click', function(e) {
-                    if (e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL') {
-                        return;
-                    }
-                    
-                    const radio = this.querySelector('.consultation-checkbox');
-                    if (radio) {
-                        radio.checked = true;
-                        this.classList.add('selected');
-                        
-                        // Remove selected class from other cards
-                        document.querySelectorAll('.consultation-card').forEach(otherCard => {
-                            if (otherCard !== this) {
-                                otherCard.classList.remove('selected');
-                            }
-                        });
-                    }
-                });
-            });
+            
+            // Initial summary update
+            updateSummary();
         });
     </script>
 </body>
-
 </html>

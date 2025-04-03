@@ -35,6 +35,10 @@ mongoose.connect("mongodb://127.0.0.1:27017/ayurveda", {
   .catch(err => console.error("❌ MongoDB Connection Error:", err));
 
 // Routes
+app.get("/", (req, res) => {
+    const userName = req.session.user ? req.session.user.name : null;
+    res.render("home", { message: null, userName: userName });
+});
 const userRoutes = require("./Routes/userRoutes"); 
 app.use("/", userRoutes);
 const productroutes = require("./Routes/productroutes"); 
@@ -46,107 +50,26 @@ app.use("/", wholesaleroutes);
 const doctorroutes = require("./Routes/doctorroutes"); 
 const JobApplication = require('./Models/Doctor');
 app.use("/", doctorroutes);
+const consultationroutes = require('./Routes/consultationroute');
+app.use('/consultation', consultationroutes);
+const paymentroutes=require("./Routes/paymentroutes");
+app.use("/",paymentroutes); 
+const newsletterroutes=require("./Routes/consultationroute");
+app.use("/",newsletterroutes)
 
 // Page Routes
-app.get("/", (req, res) => {
-    const userName = req.session.user ? req.session.user.name : null;
-    res.render("home", { message: null, userName: userName });
-});
+
 
 const ADMIN_EMAIL = "ansh@ayurveda.com"; 
 const ADMIN_PASSWORD = "test123";
 
-// Consultation Booking Route
-app.post('/consultation/book', async (req, res) => {
-    try {
-        const { full_name, email, phone, dob, concerns, appointment, selectedDoctor, consultationType } = req.body;
-        
-        // Validate required fields
-        if (concerns.length < 20) {
-            req.flash('error', 'Please describe your health concerns in at least 20 characters');
-            return res.redirect('/consultation');
-        }
-        
-        const appointmentDate = new Date(appointment);
-        if (appointmentDate <= new Date()) {
-            req.flash('error', 'Please select a future date and time for your appointment');
-            return res.redirect('/consultation');
-        }
 
-        const newConsultation = new Consultation({
-            patientName: full_name,
-            patientEmail: email,
-            patientPhone: phone,
-            patientDOB: dob,
-            healthConcerns: concerns,
-            appointmentDateTime: appointmentDate,
-            doctor: selectedDoctor,
-            consultationType: consultationType,
-            status: 'confirmed',
-            bookedAt: new Date()
-        });
 
-        await newConsultation.save();
-        res.redirect('/successfullBooking');
-        
-    } catch (error) {
-        console.error('Booking error:', error);
-        req.flash('error', 'Failed to book consultation. Please try again.');
-        res.redirect('/consultation');
-    }
-});
 
-// Consultation Page
-app.get('/consultation', async (req, res) => {
-    try {
-        const approvedDoctors = await JobApplication.find({ status: 'Approved' });
-        const userName = req.session.user ? req.session.user.name : null;
-        
-        res.render('consultation', { 
-            approvedDoctors,
-            userName,
-            messages: req.flash() 
-        });
-    } catch (err) {
-        console.error('Error fetching doctors:', err);
-        req.flash('error', 'Error loading doctors list');
-        res.render('consultation', { 
-            approvedDoctors: [],
-            userName: req.session.user ? req.session.user.name : null
-        });
-    }
-});
 
 // Success Page
 // Update your success route to include booking and doctor data
-app.get('/successfullBooking', async (req, res) => {
-    try {
-        if (!req.session.user) {
-            return res.redirect('/login');
-        }
 
-        // Get the latest booking for the current user
-        const booking = await Consultation.findOne({
-            patientEmail: req.session.user.email
-        }).sort({ bookedAt: -1 }).populate('doctor');
-
-        if (!booking) {
-            req.flash('error', 'No booking found');
-            return res.redirect('/consultation');
-        }
-
-        res.render('successfullBooking', { 
-            user: req.session.user,
-            booking: booking,
-            doctor: booking.doctor // The populated doctor data
-        });
-        
-    } catch (error) {
-        console.error('Error loading booking confirmation:', error);
-        req.flash('error', 'Error loading booking details');
-        res.redirect('/consultation');
-    }
-});
 
 // Other Page Routes
 app.get('/aboutus', (req, res) => res.render("aboutUs"));
@@ -155,7 +78,7 @@ app.get('/apply-success', (req, res) => res.render("apply-success"));
 app.get('/doctorapply', (req, res) => res.render("doctorapply"));
 app.get('/wholesale', (req, res) => res.render("wholesale"));
 app.get('/softwaredeveloper', (req, res) => res.render("softwaredeveloper"));
-app.get('/newsletter', (req, res) => res.render("newsletter", { messages: req.flash() }));
+
 app.get('/community', (req, res) => res.render("community"));
 app.get('/jobOpportunities', (req, res) => res.render("jobOpportunities"));
 app.get('/location', (req, res) => res.render("location"));
@@ -192,7 +115,7 @@ app.get("/admin", async (req, res) => {
 });
 
 // Newsletter Routes
-const newsletterRoutes = require('./Routes/subscriberroutes');
+const newsletterRoutes = require('./Routes/newsletter');
 app.use('/', newsletterRoutes);
 
 // Start Server

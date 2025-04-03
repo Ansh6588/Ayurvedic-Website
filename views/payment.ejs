@@ -3,34 +3,298 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Page</title>
-    <link rel="stylesheet" href="css/payment.css">
+    <title>Processing Payment | Wellness Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a6bff;
+            --success: #28a745;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--light-bg);
+            color: var(--dark-text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            transition: background 0.5s ease;
+        }
+        
+        .payment-container {
+            background: white;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transform: translateY(0);
+            opacity: 1;
+            transition: all 0.4s ease;
+        }
+        
+        .payment-header {
+            background: var(--primary);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .payment-header h2 {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .payment-body {
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .processing-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(74, 107, 255, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            margin: 20px 0;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        
+        .success-section {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .checkmark-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--success);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            animation: scaleIn 0.5s ease-in-out;
+        }
+        
+        .checkmark {
+            color: white;
+            font-size: 40px;
+            animation: checkmark 0.5s ease-in-out;
+        }
+        
+        @keyframes checkmark {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes scaleIn {
+            0% { transform: scale(0); }
+            80% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e9ecef;
+            border-radius: 3px;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            width: 0;
+            background: var(--primary);
+            border-radius: 3px;
+            transition: width 3s linear;
+        }
+        
+        .payment-details {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: left;
+        }
+        
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .detail-row:last-child {
+            margin-bottom: 0;
+            padding-top: 10px;
+            border-top: 1px solid #e9ecef;
+            font-weight: 600;
+        }
+        
+        .redirect-message {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #6c757d;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+    </style>
 </head>
 <body>
     <div class="payment-container">
-        <div class="payment-card">
-            <h1>Payment Information</h1>
-            <form action="/payment-success" method="POST">
-                <!-- Card Information Section -->
-                <div class="card-info">
-                    <label for="card">Card Information:</label>
-                    <div class="card-details">
-                        <input type="radio" name="card" id="visa" checked>
-                        <label for="visa" class="card-label">Visa <span class="card-type">(**** 1234)</span></label>
+        <div class="payment-header">
+            <h2><i class="fas fa-lock"></i> Secure Payment</h2>
+            <p>Processing your transaction</p>
+        </div>
+        
+        <div class="payment-body">
+            <div class="processing-section" id="processing">
+                <div class="spinner"></div>
+                <h3>Verifying payment details</h3>
+                <p class="pulse">Please wait while we process your payment</p>
+                
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+                
+                <div class="payment-details">
+                    <div class="detail-row">
+                        <span>Amount:</span>
+                        <span>$<span id="paymentAmount">0.00</span></span>
+                    </div>
+                    <div class="detail-row">
+                        <span>Payment Method:</span>
+                        <span>Credit Card</span>
+                    </div>
+                    <div class="detail-row">
+                        <span>Transaction ID:</span>
+                        <span>#<span id="transactionId">---</span></span>
+                    </div>
+                    <div class="detail-row">
+                        <span>Status:</span>
+                        <span id="statusText">Processing...</span>
+                    </div>
+                    <div class="detail-row">
+                        <span>Total:</span>
+                        <span>$<span id="totalAmount">0.00</span></span>
                     </div>
                 </div>
-
-                <!-- Amount Section -->
-                <div class="amount">
-                    <h2>Total: <span>$99.99</span></h2>
+            </div>
+            
+            <div class="success-section" id="success">
+                <div class="checkmark-circle">
+                    <i class="fas fa-check checkmark"></i>
                 </div>
-
-                <!-- Pay Button -->
-                <div class="pay-button-container">
-                    <button type="submit" class="pay-button">Pay Now</button>
+                <h3>Payment Successful!</h3>
+                <p>Your transaction has been completed</p>
+                
+                <div class="payment-details">
+                    <div class="detail-row">
+                        <span>Amount Paid:</span>
+                        <span>$<span id="successAmount">0.00</span></span>
+                    </div>
+                    <div class="detail-row">
+                        <span>Transaction ID:</span>
+                        <span>#<span id="successTransactionId">---</span></span>
+                    </div>
+                    <div class="detail-row">
+                        <span>Date:</span>
+                        <span id="transactionDate">---</span>
+                    </div>
+                    <div class="detail-row">
+                        <span>Status:</span>
+                        <span class="text-success">Completed</span>
+                    </div>
                 </div>
-            </form>
+                
+                <div class="redirect-message">
+                    <i class="fas fa-circle-notch fa-spin"></i> Redirecting to homepage...
+                </div>
+            </div>
         </div>
     </div>
+
+    <script>
+        // Generate random transaction details
+        const transactionId = 'TRX' + Math.floor(Math.random() * 1000000);
+        const amount = (Math.random() * 100 + 10).toFixed(2);
+        
+        // Set transaction details
+        document.getElementById('paymentAmount').textContent = amount;
+        document.getElementById('totalAmount').textContent = amount;
+        document.getElementById('transactionId').textContent = transactionId;
+        document.getElementById('successAmount').textContent = amount;
+        document.getElementById('successTransactionId').textContent = transactionId;
+        
+        // Set current date
+        const now = new Date();
+        document.getElementById('transactionDate').textContent = 
+            now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+        
+        // Animate progress bar
+        const progressBar = document.getElementById('progress');
+        progressBar.style.width = '100%';
+        
+        // Simulate payment processing
+        setTimeout(() => {
+            document.getElementById('statusText').textContent = 'Finalizing...';
+        }, 1000);
+        
+        setTimeout(() => {
+            document.getElementById('statusText').textContent = 'Approved';
+            document.getElementById('statusText').style.color = '#28a745';
+            
+            // Hide processing section, show success
+            document.getElementById('processing').style.display = 'none';
+            document.getElementById('success').style.display = 'flex';
+            
+            // Redirect after delay
+            setTimeout(() => {
+                window.location.href = "/";
+            }, 3000);
+        }, 3000);
+    </script>
 </body>
 </html>

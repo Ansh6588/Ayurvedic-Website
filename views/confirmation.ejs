@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/home.css"> 
+    <link rel="stylesheet" href="/css/nav.css"> 
+    <title><%= title %> | Wellness Center</title>
+    <style>
+        .booking-card {
+            border-left: 5px solid #28a745;
+            transition: transform 0.3s ease;
+        }
+        .booking-card:hover {
+            transform: translateY(-5px);
+        }
+        .btn-payment {
+            background: linear-gradient(135deg, #28a745, #218838);
+            border: none;
+            padding: 10px 25px;
+            font-weight: 600;
+        }
+        /* Debug styles */
+        .debug-panel {
+            background-color: #fff3cd;
+            border: 2px dashed #ffc107;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header"><%- include('partials/nav') %></div>
+    
+    
+    <div class="container my-5">
+        <div class="card booking-card shadow">
+            <div class="card-header bg-success text-white">
+                <h2><i class="fas fa-check-circle me-2"></i> You're Almost There!</h2>
+            </div>
+            <div class="card-body">
+                <!-- Debug Panel -->
+                <div class="debug-panel">
+                    <h5><i class="fas fa-bug me-2"></i>Debug Information</h5>
+                    <p><strong>Booking ID:</strong> <%= booking._id %></p>
+                    <p><strong>Amount:</strong> $<%= booking.amount %></p>
+                    <p><strong>Generated Payment Link:</strong> /payment?bookingId=<%= booking._id %>&amount=<%= booking.amount %></p>
+                </div>
+
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Please complete payment to finalize your consultation
+                </div>
+                
+                <div class="booking-details mt-4">
+                    <h4 class="mb-4"><i class="fas fa-calendar-check me-2"></i>Booking Summary</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong><i class="fas fa-procedures me-2"></i>Consultation Type:</strong> <%= booking.consultationType %></p>
+                            <p><strong><i class="fas fa-user-md me-2"></i>Doctor:</strong> Dr. <%= booking.doctor.fullName %></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong><i class="fas fa-clock me-2"></i>Appointment:</strong> 
+                                <%= new Date(booking.appointmentDateTime).toLocaleString('en-US', {
+                                    weekday: 'long',
+                                    month: 'long',
+                                    day: 'numeric',
+                                    year: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                }) %>
+                            </p>
+                            <p><strong><i class="fas fa-money-bill-wave me-2"></i>Total Amount:</strong> $<%= booking.consultationType.includes('General') ? '50' : booking.consultationType.includes('Eye') ? '60' : '70' %></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="d-flex justify-content-between mt-5">
+                    <a href="/" class="btn btn-outline-secondary">
+                        <i class="fas fa-home me-2"></i>Return Home
+                    </a>
+                    <!-- Fixed payment button (removed extra closing tag) -->
+                    <a href="/payment?bookingId=<%= booking._id %>&amount=<%= booking.amount %>" 
+                       class="btn btn-payment text-white"
+                       onclick="console.log('Payment button clicked with bookingId:', '<%= booking._id %>')">
+                        <i class="fas fa-credit-card me-2"></i>Proceed to Payment
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for debugging -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const paymentBtn = document.querySelector('.btn-payment');
+            paymentBtn.addEventListener('click', function(e) {
+                console.log('Payment link navigation:', this.href);
+                // Uncomment to prevent navigation for testing
+                // e.preventDefault();
+            });
+        });
+    </script>
+</body>
+</html>
