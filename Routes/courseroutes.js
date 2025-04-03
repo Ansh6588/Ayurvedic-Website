@@ -21,7 +21,12 @@ const upload = multer({
         // Only accept video files
         if (file.mimetype.startsWith('video/')) {
             cb(null, true);
-        } else {
+        }
+        else if (file.fieldname === 'thumbnail' && file.mimetype.startsWith('image/')) {
+            cb(null, true);
+          } 
+        
+        else {
             cb(new Error("Only video files are allowed"), false);
         }
     }
@@ -39,70 +44,79 @@ router.get("/courses", async (req, res) => {
 // Route for uploading course videos (both full and preview videos)
 router.post("/upload-course", upload.fields([
     { name: "fullVideo", maxCount: 1 },
-    { name: "previewVideo", maxCount: 1 }
-]), async (req, res) => {
+    { name: "previewVideo", maxCount: 1 },
+    { name: "thumbnail", maxCount: 1 }
+  ]), async (req, res) => {
     try {
-        if (!req.files || !req.files.fullVideo || !req.files.previewVideo) {
-            return res.status(400).send("Both full video and preview video must be uploaded");
-        }
-
-        const fullVideoFile = req.files.fullVideo[0];  // Get full video file
-        const previewVideoFile = req.files.previewVideo[0];  // Get preview video file
-
-        // Upload the full video to GridFS
-        const fullVideoFilename = `${Date.now()}-${fullVideoFile.originalname}`;
-        const fullVideoStream = gridfsBucket.openUploadStream(fullVideoFilename);
-        fullVideoStream.write(fullVideoFile.buffer);
-        fullVideoStream.end();
-
-        fullVideoStream.on("finish", async () => {
-            const fullVideoId = fullVideoStream.id;
-
-            // Upload the preview video to GridFS
-            const previewVideoFilename = `${Date.now()}-${previewVideoFile.originalname}`;
-            const previewVideoStream = gridfsBucket.openUploadStream(previewVideoFilename);
-            previewVideoStream.write(previewVideoFile.buffer);
-            previewVideoStream.end();
-
-            previewVideoStream.on("finish", async () => {
-                const previewVideoId = previewVideoStream.id;
-
-                const { title, description, price, fullVideoDuration, previewVideoDuration } = req.body;
-
-                // Create the course with the uploaded video files' IDs
-                const newCourse = new Course({
-                    title,
-                    description,
-                    price: parseFloat(price),
-                    video: {
-                        fullVideoId,
-                        previewVideoId,  // Store preview video ID
-                        fullVideoDuration: parseInt(fullVideoDuration),
-                        previewVideoDuration: parseInt(previewVideoDuration)
-                    }
-                });
-
-                await newCourse.save();
-                req.flash("success", "Course uploaded successfully!");
-                res.redirect("/admin");  // Redirect after saving the course
-            });
-
-            previewVideoStream.on("error", (err) => {
-                console.error("Error uploading preview video:", err);
-                res.status(500).send("Error uploading preview video");
-            });
+      // Validate required fields
+      const { title, description, price, fullVideoDuration, previewVideoDuration } = req.body;
+      if (!title || !description || !price || !fullVideoDuration || !previewVideoDuration) {
+        req.flash('error', 'All fields are required');
+        return res.redirect('/admin');
+      }
+  
+      // Validate files
+      if (!req.files?.fullVideo?.[0] || !req.files?.previewVideo?.[0]) {
+        req.flash('error', 'Both videos are required');
+        return res.redirect('/admin');
+      }
+  
+      // Helper function for GridFS upload
+      const uploadToGridFS = (file) => {
+        return new Promise((resolve, reject) => {
+          const filename = `${Date.now()}-${file.originalname}`;
+          const uploadStream = gridfsBucket.openUploadStream(filename);
+          
+          uploadStream.on('finish', () => resolve(uploadStream.id));
+          uploadStream.on('error', reject);
+          uploadStream.end(file.buffer);
         });
-
-        fullVideoStream.on("error", (err) => {
-            console.error("Error uploading full video:", err);
-            res.status(500).send("Error uploading full video");
-        });
+      };
+  
+      // Upload all files in parallel
+      const [fullVideoId, previewVideoId, thumbnailId] = await Promise.all([
+        uploadToGridFS(req.files.fullVideo[0]),
+        uploadToGridFS(req.files.previewVideo[0]),
+        req.files.thumbnail?.[0] ? uploadToGridFS(req.files.thumbnail[0]) : null
+      ]);
+  
+      // Create and save course
+      const newCourse = new Course({
+        title,
+        description,
+        price: parseFloat(price),
+        video: {
+          fullVideoId,
+          previewVideoId,
+          fullVideoDuration: parseInt(fullVideoDuration),
+          previewVideoDuration: parseInt(previewVideoDuration)
+        },
+        thumbnail: thumbnailId || undefined
+      });
+  
+      await newCourse.save();
+      
+      // SUCCESS MESSAGE - This will show on admin page
+      req.flash('success', 'Course uploaded successfully!');
+      res.redirect('/admin');
+  
     } catch (error) {
-        console.error("Error uploading course:", error);
-        res.status(500).send("Internal Server Error");
+      console.error("Upload error:", error);
+      
+      // Handle specific error cases
+      let errorMessage = "Failed to upload course";
+      if (error instanceof multer.MulterError) {
+        if (error.code === "LIMIT_FILE_SIZE") {
+          errorMessage = "File size too large (max 100MB)";
+        } else if (error.message.includes("video files")) {
+          errorMessage = "Only video files are allowed for videos";
+        }
+      }
+      
+      req.flash('error', errorMessage);
+      res.redirect('/admin');
     }
-});
-
+  });
 // Serve Course Preview Video (if applicable)
 router.get("/courses/:courseId/preview", async (req, res) => {
     try {
